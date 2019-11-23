@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Design;
 using System.Diagnostics;
+using System.Reflection;
 using System.Text;
 
 namespace PosGen
@@ -9,9 +10,13 @@ namespace PosGen
     {
         private static void Main(string[] args)
         {
-            InputFeatures();
+            ProjectGenerator.CreateProject(FeatureSelection.Of("ProjectName", "./brigitte/project-location/", "ant", "packet.name.and",
+                "y"));
+            //InputFeatures();
         }
 
+        //TODO: if maven: group id
+        //TODO: setup junit4
         private static FeatureSelection InputFeatures()
         {
             //Print POSGEN banner
@@ -20,11 +25,14 @@ namespace PosGen
             string projectName;
             string projectLocation;
             string projectType;
+            string packageName;
             string insertCliGui;
 
             var valid = false;
             do
             {
+                #region projectName
+
                 do
                 {
                     Console.Write("Name of the project: ");
@@ -33,6 +41,10 @@ namespace PosGen
                     Debug.Assert(projectName != null, nameof(projectName) + " != null");
                     valid = projectName.Length > 0;
                 } while (!valid);
+
+                #endregion
+
+                #region projectLocation
 
                 do
                 {
@@ -45,6 +57,10 @@ namespace PosGen
 
                     valid = projectLocation.Length > 0;
                 } while (!valid);
+
+                #endregion
+
+                #region projectType
 
                 do
                 {
@@ -66,6 +82,23 @@ namespace PosGen
                     projectType = projectType.ToLower();
                 } while (!valid);
 
+                #endregion
+
+                #region packageName
+
+                do
+                {
+                    Console.Write("Name of the package: ");
+                    packageName = Console.ReadLine();
+
+                    Debug.Assert(projectName != null, nameof(projectName) + " != null");
+                    valid = projectName.Length > 0;
+                } while (!valid);
+
+                #endregion
+
+                #region insertCliGui
+
                 do
                 {
                     Console.Write("Insert CLIGui(Y, n): ");
@@ -85,6 +118,10 @@ namespace PosGen
 
                     insertCliGui = insertCliGui.ToLower();
                 } while (!valid);
+
+                #endregion
+
+                #region confirmed
 
                 Console.WriteLine("\n\nProject name: " + projectName + "\nProject location: " + projectLocation +
                                   "\nProject type: " + projectType + "\nInsert CLIGui: " + insertCliGui);
@@ -109,10 +146,12 @@ namespace PosGen
                     confirmed = confirmed.ToLower();
                 } while (!valid);
 
+                #endregion
+
                 valid = confirmed.Contains("y");
             } while (!valid);
 
-            return FeatureSelection.of(projectName, projectLocation, projectType, insertCliGui);
+            return FeatureSelection.Of(projectName, projectLocation, projectType, packageName, insertCliGui);
         }
 
         private static string ToKebabCase(string input)

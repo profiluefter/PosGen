@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with PosGen -->
+<project name="ANT-Project" default="default" basedir=".">
+    <description>Builds, tests, and runs the project {{PROJECT_NAME}}.</description>
+    <import file="nbproject/build-impl.xml"/>
+</project>
