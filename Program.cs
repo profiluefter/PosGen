@@ -10,9 +10,7 @@ namespace PosGen
     {
         private static void Main(string[] args)
         {
-            ProjectGenerator.CreateProject(FeatureSelection.Of("ProjectName", "./brigitte/project-location/", "ant", "packet.name.and",
-                "y"));
-            //InputFeatures();
+            ProjectGenerator.CreateProject(InputFeatures());
         }
 
         //TODO: if maven: group id
