@@ -1,0 +1,14 @@
+image: microsoft/dotnet:latest
+
+stages:
+    - publish
+    
+buildRelease:
+    stage: publish
+    script:
+      - dotnet publish -c Release
+      - cp bin/Release/netcoreapp3.0/win-x64/publish/PosGen.exe .
+    artefacts:
+        name: "$CI_COMMIT_REF_NAME"
+        paths:
+          - PosGen.exe
