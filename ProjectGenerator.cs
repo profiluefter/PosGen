@@ -58,7 +58,6 @@ namespace PosGen
                     break;
                 case FeatureSelection.ProjectTypes.Maven:
                     throw new NotImplementedException();
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
